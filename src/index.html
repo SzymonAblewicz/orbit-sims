@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbit Simulations</title>
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <div class="ui-panel" id="ui-left">
+      <h3>2 Body Problem Orbit Simulator</h3>
+      <div class="muted">Based on the universal variable formulation of Kepler's equation.</div>
+
+      <label>Gravitational constant G (km³ kg⁻¹ s⁻²)</label>
+      <input id="G" type="number" value="60" step="any">
+
+      <label>Massive mass m₁ (kg)</label>
+      <input id="m1" type="number" value="10000" step="any">
+
+      <label>Satellite mass m₂ (kg)</label>
+      <input id="m2" type="number" value="1000" step="any">
+
+      <label>Computed gravitational parameter μ = G*(m1+m2) (km³/s²)</label>
+      <output id="computedMu"></output>
+
+      <label>Initial position vector r₀ (km) from Earth</label>
+      <input id="r0" type="text" value="12000, 0">
+
+      <label>Eccentricity e (adjusts |v₀| tangentially)</label>
+      <div class="row">
+        <input id="ecc" type="range" min="0" max="2.5" step="0.01" value="0.2">
+        <input id="eccInput" class="ecc-value" type="number" step="0.0001" min="0" max="10" title="Type eccentricity (0 ≤ e ≤ 10)">
+      </div>
+      <div class="muted small">Assumes planar orbit; slider rescales tangential velocity at r₀. You can type a value into the box (up to 4 decimal places).</div>
+
+      <label>Propagation step Δt (s) per frame</label>
+      <input id="dt" type="number" value="60" step="any">
+
+      <label>Method</label>
+      <select id="method"><option value="universal">Universal (Lagrange)</option><option value="something">something else?</option></select>
+
+      <label>Reference Frame</label>
+      <select id="refFrame"><option value="COM">Center of mass frame</option><option value="Rel">Perifocal frame (relative distance)</option></select>
+
+      <div class="row">
+        <button id="start">Start</button>
+      </div>
+      <div class="row">
+        <button id="step">Step</button>
+        <button id="reset">Reset</button>
+      </div>
+
+      <label>Controls</label>
+      <div class="muted small">Draw trajectory history, scaling, and toggle labels with the checkboxes below.</div>
+      <label><input id="showTrails" type="checkbox" checked> Draw trajectory trails</label>
+      <label><input id="drawEarth" type="checkbox" checked> Draw Earth</label>
+      <label><input id="showtrajectory" type="checkbox" checked> Show full trajectory</label>
+
+    </div>
+
+      <div id="canvas-wrap">
+        <canvas id="orbit"></canvas>
+        <canvas id="ueff"></canvas>
+      </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
